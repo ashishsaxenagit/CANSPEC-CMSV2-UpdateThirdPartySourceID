@@ -58,8 +58,8 @@ namespace CANSPEC_CMSV2_UpdateThirdPartySourceID
                        (excelRange.Cells[i, 2] != null && excelRange.Cells[i, 2].Value2 != null)
                        )
                     {
-                        LatestJanssenFAID = excelRange.Cells[i, 1].Value2;
-                        OldJanssenFAID = excelRange.Cells[i, 2].Value2;
+                        OldJanssenFAID = excelRange.Cells[i, 1].Value2;
+                        LatestJanssenFAID = excelRange.Cells[i, 2].Value2;
                     }
 
                     SqlScr = "INSERT INTO [DBO].[ProjectFREEWAY_3340_FinancialAssistance_JanssenFAIDMapping] ";
