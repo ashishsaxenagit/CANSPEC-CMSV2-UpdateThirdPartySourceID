@@ -75,7 +75,7 @@ namespace CANSPEC_CMSV2_UpdateThirdPartySourceID
                         cn.Open();
                         int rowsAffected = command.ExecuteNonQuery();
                         cn.Close();
-                        Console.Write("RowNo:" + i.ToString() + "- LatestSALESFORCEID-" + LatestJanssenFAID + "- LEGACYSALESFORCEID-" + OldJanssenFAID + "\t");
+                        Console.Write("RowNo:" + i.ToString() + "- LEGACYSALESFORCEID-" + OldJanssenFAID + "- LatestSALESFORCEID-" + LatestJanssenFAID + "\t");
                     }
                 }
                 excelApp.Quit();
