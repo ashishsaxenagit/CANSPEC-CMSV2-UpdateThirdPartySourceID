@@ -15,6 +15,8 @@ namespace CANSPEC_CMSV2_UpdateThirdPartySourceID
         //https://www.csharp-console-examples.com/general/reading-excel-file-in-c-console-application/
         private static string CMSv2ConStr = System.Configuration.ConfigurationManager.AppSettings["CMSv2ConStr"];
         private static string DataFilePath = System.Configuration.ConfigurationManager.AppSettings["DataFilePath"];
+        private static string strFlag = System.Configuration.ConfigurationManager.AppSettings["Flag"];
+        
         static void Main(string[] args)
         {
             int rows = 0;
@@ -80,17 +82,24 @@ namespace CANSPEC_CMSV2_UpdateThirdPartySourceID
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
                 Console.WriteLine("\r\n\r\n" + "FAID Mapping Excel successfully Imported!!");
 
-                Console.WriteLine("\r\n" + "FAID Mapping Started!!");
-                using (SqlConnection cnSP = new SqlConnection(CMSv2ConStr))
-                using (SqlCommand command = new SqlCommand("[dbo].[sProjectFREEWAY_3340_ImportedJanssenFAIDMapping_OneTime]", cnSP))
+                if (strFlag == "True")
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    cnSP.Open();
-                    NoofRows= command.ExecuteNonQuery(); 
-                    cnSP.Close();
-                    Console.WriteLine("\r\n" + "FAID Mapping Completed!!");
+                    Console.WriteLine("\r\n" + "FAID Mapping Started!!");
+                    using (SqlConnection cnSP = new SqlConnection(CMSv2ConStr))
+                    using (SqlCommand command = new SqlCommand("[dbo].[sProjectFREEWAY_3340_ImportedJanssenFAIDMapping_OneTime]", cnSP))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        cnSP.Open();
+                        NoofRows = command.ExecuteNonQuery();
+                        cnSP.Close();
+                        Console.WriteLine("\r\n" + "FAID Mapping Completed!!");
+                    }
+                    Console.WriteLine("\r\n" + "FAID Mapping Progress Completed for [ " + Convert.ToString(NoofRows) + " ] records !!");
                 }
-                Console.WriteLine("\r\n" + "FAID Mapping Progress Completed for [ "+ Convert.ToString(NoofRows) +" ] records !!");
+                else
+                {
+                    Console.WriteLine("\r\n" + "FAID Mapping escaped!!");
+                }
                 Console.ReadLine();
             }
 
